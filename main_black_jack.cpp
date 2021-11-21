@@ -8,8 +8,9 @@
 using namespace ::std;
 
 //Part 1 Library
-string SUITS[] = {"S","H","D","C"};
-string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+const int DECKSIZE = 52;
+const int SUITS[] = {6,3,4,5};
+const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
 //Part 2 Library
 //Part 3 Library
@@ -53,10 +54,10 @@ struct CardArray{
 
 void getNewDeck(CardArray & deck){
 
-    deck.max_elements = 52;
-    deck.current_elements = 52;
+    deck.max_elements = DECKSIZE;
+    deck.current_elements = DECKSIZE;
 
-    deck.pointer = new Card[52];
+    deck.pointer = new Card[DECKSIZE];
 
 
     //deck.pointer->suit = SUITS[suit];
@@ -69,7 +70,7 @@ void getNewDeck(CardArray & deck){
         for (int rank = 1; rank <= 13; rank++){
 
             //Assign specific card in deck a suit
-            deck.pointer[card_count].suit = SUITS[suit];
+            deck.pointer[card_count].suit = char (SUITS[suit]);
 
             //Assign specific card in deck a rank
             deck.pointer[card_count].rank = rank;
@@ -126,9 +127,9 @@ void shuffleDeck(CardArray & deck){
 
     //Use a Temp variable to swap multiple indicies at random
 
-    for(int swap_index = 0; swap_index < 52; swap_index++){
+    for(int swap_index = 0; swap_index < DECKSIZE; swap_index++){
 
-        int swapee_index =  rand() % 52;
+        int swapee_index =  rand() % DECKSIZE;
 
         Card temp;
 
@@ -165,6 +166,7 @@ int main(){
     printDeck(testDeck);
 
     cout << "\n\n";
+
 
     shuffleDeck(testDeck);
 
