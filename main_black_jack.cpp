@@ -9,7 +9,7 @@ using namespace ::std;
 
 //Part 1 Library
 const int DECKSIZE = 52;
-const int SUITS[] = {6,3,4,5};
+const int SUITS[] = {6,3,4,5}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respectively
 const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
 //Part 2 Library
@@ -18,6 +18,7 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 //Part 5 Library
 
 //************************ Part 1 ************************//
+//TODO - Delete Dynamic Memory
 
 //Structure for a Card
 struct Card{
@@ -38,13 +39,14 @@ struct Card{
 //Structure for an Array of Cards
 struct CardArray{
 
-    Card* pointer;
+    Card* cards;
     int max_elements;
     int current_elements;
 
+
     CardArray(){
 
-        pointer = nullptr;
+        cards = nullptr;
         max_elements = 0;
         current_elements = 0;
     }
@@ -57,7 +59,7 @@ void getNewDeck(CardArray & deck){
     deck.max_elements = DECKSIZE;
     deck.current_elements = DECKSIZE;
 
-    deck.pointer = new Card[DECKSIZE];
+    deck.cards = new Card[DECKSIZE];
 
 
     //deck.pointer->suit = SUITS[suit];
@@ -70,27 +72,27 @@ void getNewDeck(CardArray & deck){
         for (int rank = 1; rank <= 13; rank++){
 
             //Assign specific card in deck a suit
-            deck.pointer[card_count].suit = char (SUITS[suit]);
+            deck.cards[card_count].suit = char (SUITS[suit]);
 
             //Assign specific card in deck a rank
-            deck.pointer[card_count].rank = rank;
+            deck.cards[card_count].rank = rank;
 
             //Assign specific card in deck a description
-            deck.pointer[card_count].description = DESCRIPTION[rank-1];
+            deck.cards[card_count].description = DESCRIPTION[rank-1];
 
             //If ACE
             if (rank == 1){
-                deck.pointer[card_count].value = 11;
+                deck.cards[card_count].value = 11;
             }
 
             //If Face card
             else if (rank == 11 || rank == 12 || rank == 13){
-                deck.pointer[card_count].value = 10;
+                deck.cards[card_count].value = 10;
             }
 
             //If Numbered
             else{
-                deck.pointer[card_count].value = rank;
+                deck.cards[card_count].value = rank;
             }
 
 
@@ -113,7 +115,7 @@ void printDeck(const CardArray & deck){
 
             card_count = suit*13 + rank;
 
-            cout << (deck.pointer)[card_count].description + (deck.pointer)[card_count].suit + " ";
+            cout << (deck.cards)[card_count].description + (deck.cards)[card_count].suit + " ";
         }
         cout << endl;
     }
@@ -133,23 +135,34 @@ void shuffleDeck(CardArray & deck){
 
         Card temp;
 
-        temp = deck.pointer[swap_index];
+        temp = deck.cards[swap_index];
 
-        deck.pointer[swap_index] = deck.pointer[swapee_index];
+        deck.cards[swap_index] = deck.cards[swapee_index];
 
-        deck.pointer[swapee_index] = temp;
+        deck.cards[swapee_index] = temp;
 
 
     }
 
 }
 
-
-
-
-
-
 //************************ Part 2 ************************//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //************************ Part 3 ************************//
 
