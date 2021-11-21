@@ -18,7 +18,6 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 //Part 5 Library
 
 //************************ Part 1 ************************//
-//TODO - Delete Dynamic Memory
 
 //Structure for a Card
 struct Card{
@@ -56,8 +55,8 @@ struct CardArray{
 
 void getNewDeck(CardArray & deck){
 
-    deck.max_elements = DECKSIZE;
-    deck.current_elements = DECKSIZE;
+    deck.max_elements = 0;
+    deck.current_elements = 0;
 
     deck.cards = new Card[DECKSIZE];
 
@@ -80,6 +79,7 @@ void getNewDeck(CardArray & deck){
             //Assign specific card in deck a description
             deck.cards[card_count].description = DESCRIPTION[rank-1];
 
+            //Assign specific card in deck a value
             //If ACE
             if (rank == 1){
                 deck.cards[card_count].value = 11;
@@ -94,7 +94,6 @@ void getNewDeck(CardArray & deck){
             else{
                 deck.cards[card_count].value = rank;
             }
-
 
             card_count ++;
         }
@@ -148,6 +147,15 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
+int blackjack(CardArray & deck){
+
+
+
+
+
+    //Placeholder DELETE
+    return(0);
+}
 
 
 
@@ -185,6 +193,9 @@ int main(){
 
     printDeck(testDeck);
 
+    cout << "\nhi\n";
+
+    delete[] testDeck.cards;
 
     return(0);
 }
