@@ -4,14 +4,19 @@
 #include <ios>
 #include <string>
 
+
 using namespace ::std;
 
+//Part 1 Library
+string SUITS[] = {"S","H","D","C"};
+string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
-string SUITS[] = {"s","h","d","c"};
-string DESCRIPTION[] = {"A","1","2","3","4","5","6","7","8","9","10","J","Q","K"};
+//Part 2 Library
+//Part 3 Library
+//Part 4 Library
+//Part 5 Library
 
-
-//Part 1
+//************************ Part 1 ************************//
 
 //Structure for a Card
 struct Card{
@@ -70,7 +75,7 @@ void getNewDeck(CardArray & deck){
             deck.pointer[card_count].rank = rank;
 
             //Assign specific card in deck a description
-            deck.pointer[card_count].suit = DESCRIPTION[rank-1];
+            deck.pointer[card_count].description = DESCRIPTION[rank-1];
 
             //If ACE
             if (rank == 1){
@@ -84,7 +89,7 @@ void getNewDeck(CardArray & deck){
 
             //If Numbered
             else{
-                deck.pointer[card_count].value = rank % 10;
+                deck.pointer[card_count].value = rank;
             }
 
 
@@ -107,13 +112,34 @@ void printDeck(const CardArray & deck){
 
             card_count = suit*13 + rank;
 
-            cout << ((deck.pointer)[card_count].suit) << "" << ((deck.pointer)[card_count].rank) << " ";
+            cout << (deck.pointer)[card_count].description + (deck.pointer)[card_count].suit + " ";
         }
-
         cout << endl;
     }
 
+}
 
+//Shuffle a Given Deck
+void shuffleDeck(CardArray & deck){
+
+    srand(time(nullptr));
+
+    //Use a Temp variable to swap multiple indicies at random
+
+    for(int swap_index = 0; swap_index < 52; swap_index++){
+
+        int swapee_index =  rand() % 52;
+
+        Card temp;
+
+        temp = deck.pointer[swap_index];
+
+        deck.pointer[swap_index] = deck.pointer[swapee_index];
+
+        deck.pointer[swapee_index] = temp;
+
+
+    }
 
 }
 
@@ -121,19 +147,26 @@ void printDeck(const CardArray & deck){
 
 
 
-//Part 2
 
-//Part 3
+//************************ Part 2 ************************//
 
-//Part 4
+//************************ Part 3 ************************//
 
-//Part 5
+//************************ Part 4 ************************//
+
+//************************ Part 5 ************************//
 
 int main(){
 
     CardArray testDeck;
 
     getNewDeck(testDeck);
+
+    printDeck(testDeck);
+
+    cout << "\n\n";
+
+    shuffleDeck(testDeck);
 
     printDeck(testDeck);
 
