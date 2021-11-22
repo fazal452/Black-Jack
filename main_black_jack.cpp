@@ -249,8 +249,51 @@ int blackjack(CardArray & deck){
     deal(deck,dealerHand);
 
 
+    //Check for any second rounds wins
 
-    //Get User input
+    //Player sole 21
+    if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) != WINNUM)){
+        cout << "\n YOU WIN!!!";
+        return 1;
+    }
+
+    //Dealer sole 21
+    else if((handScore(playerHand) != WINNUM) & (handScore(dealerHand) == WINNUM)){
+        cout << "\n YOU LOSE!!!";
+        return -1;
+    }
+
+    //Draw with 21
+    else if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) == WINNUM)){
+        cout << "\n TIE!!!";
+        return 0;
+    }
+
+
+
+    //Start Playing
+    cout << "\n\nDEALING TO PLAYER\n---------------\n";
+
+    //Get Choice
+    char choice;
+    cout << "Enter h to hit or s to stand: ";
+    cin >> choice;
+
+    // todo INPUT CHECK / lower..
+
+    while(choice == 'h'){
+
+        deal(deck,playerHand);
+
+        cout << "+PLAYER+: ";
+        printHand(playerHand);
+
+        cout << "\nEnter h to hit or s to stand: ";
+        cin >> choice;
+
+
+    }
+
 
 
     //Dealer Plays out his hand
