@@ -13,6 +13,7 @@ const int SUITS[] = {6,3,4,5}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respective
 const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
 //Part 2 Library
+const int MAXCARDS = 12;
 //Part 3 Library
 //Part 4 Library
 //Part 5 Library
@@ -51,17 +52,16 @@ struct CardArray{
     }
 };
 
-//Function to Create a Deck of Cards
+//Function to Create a Full Deck of Cards
 
 void getNewDeck(CardArray & deck){
 
+    //Dont know what to do
     deck.max_elements = 0;
     deck.current_elements = 0;
 
+    //Create pointer/array of Cards with size 52
     deck.cards = new Card[DECKSIZE];
-
-
-    //deck.pointer->suit = SUITS[suit];
 
     int card_count = 0;
 
@@ -147,18 +147,50 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
+
+void initHand (CardArray &hand){
+
+    //Create 12 size Card array for hand
+    hand.cards = new Card[MAXCARDS];
+
+    hand.max_elements = MAXCARDS;
+    hand.current_elements = 0;
+
+
+}
+
+void deal(const CardArray &deck,  CardArray &hand){
+
+    hand.cards = new Card[MAXCARDS];
+
+    int cardIndex = 0;
+
+    while (hand.cards[cardIndex].value != 0){
+        cardIndex ++;
+    }
+
+    hand.cards[cardIndex] = deck.cards[0];
+
+
+}
+
+
 int blackjack(CardArray & deck){
 
+    //Create array for each Player/Dealer hand
+    CardArray playerHand;
+    CardArray dealerHand;
+
+    initHand(playerHand);
+    initHand(dealerHand);
 
 
+    deal(deck,playerHand);
 
 
     //Placeholder DELETE
     return(0);
 }
-
-
-
 
 
 
@@ -180,6 +212,8 @@ int blackjack(CardArray & deck){
 
 int main(){
 
+
+    //Part 1
     CardArray testDeck;
 
     getNewDeck(testDeck);
@@ -188,14 +222,25 @@ int main(){
 
     cout << "\n\n";
 
-
     shuffleDeck(testDeck);
 
     printDeck(testDeck);
 
-    cout << "\nhi\n";
-
     delete[] testDeck.cards;
+
+
+
+//    blackjack(testDeck);
+
+
+
+//Part 2
+
+
+
+
+
+
 
     return(0);
 }
