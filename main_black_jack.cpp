@@ -147,6 +147,18 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
+int handScore(const CardArray &hand){
+
+    int score = 0;
+
+    for (int element = 0; element < hand.current_elements; element++){
+
+        score += hand.cards[element].value;
+    }
+
+    return score;
+}
+
 void printHand(CardArray &hand){
 
     for (int element = 0; element < hand.current_elements; element++){
@@ -193,23 +205,35 @@ int blackjack(CardArray & deck){
     initHand(playerHand);
     initHand(dealerHand);
 
+    //Deal Hand to both players
 
-
-    deal(deck,playerHand);
-
-    deal(deck,dealerHand);
+    cout << handScore(playerHand) << endl;
 
     deal(deck,playerHand);
+    cout << handScore(playerHand) << endl;
+    deal(deck,playerHand);
+    cout << handScore(playerHand) << endl;
 
+    cout << handScore(dealerHand) << endl;
     deal(deck,dealerHand);
-
+    cout << handScore(dealerHand) << endl;
+    deal(deck,dealerHand);
+    cout << handScore(dealerHand) << endl;
 
 
     cout << endl;
     printHand(playerHand);
     cout << endl;
     printHand(dealerHand);
-    cout << endl;
+
+    //Ask for hit or keep going
+
+
+    //Dealer Plays out his hand
+
+
+    //Show game
+
 
     //Placeholder DELETE
     return(0);
