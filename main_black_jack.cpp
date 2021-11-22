@@ -528,6 +528,29 @@ void aceBustAdjust(CardArray & hand){
 
 //************************ Part 5 ************************//
 
+void advisor(CardArray &dealerHand, CardArray &playerHand){
+    int dealerScore = handScore(dealerHand);
+    int playerScore = handScore(playerHand);
+
+    if (playerScore > 17){
+
+        cout << 'hi';
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
 int main(){
 
 
