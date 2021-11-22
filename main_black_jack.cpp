@@ -294,18 +294,36 @@ int blackjack(CardArray & deck){
 
     //Player sole 21
     if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) != WINNUM)){
+        cout << "\n+PLAYER+: ";
+        printHand(playerHand);
+
+        cout << "\n*DEALER*: ";
+        printHand(dealerHand);
+
         cout << "\nYOU WIN!!!";
         return 1;
     }
 
     //Dealer sole 21
     else if((handScore(playerHand) != WINNUM) & (handScore(dealerHand) == WINNUM)){
+        cout << "\n+PLAYER+: ";
+        printHand(playerHand);
+
+        cout << "\n*DEALER*: ";
+        printHand(dealerHand);
+
         cout << "\nYOU LOSE!!!";
         return -1;
     }
 
     //Draw with 21
     else if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) == WINNUM)){
+        cout << "\n+PLAYER+: ";
+        printHand(playerHand);
+
+        cout << "\n*DEALER*: ";
+        printHand(dealerHand);
+
         cout << "\nTIE!!!";
         return 0;
     }
@@ -492,21 +510,19 @@ int blackJackTrack(CardArray &deck){
 
 void aceBustAdjust(CardArray & hand){
 
-    while(isBust(handScore(hand))){
+    for(int element = 0; element < hand.current_elements;element++){
 
-        for(int element = 0; element < hand.current_elements;element++){
+        if (isBust(handScore(hand))) {
 
-            if (isBust(handScore(hand))) {
+            if (hand.cards[element].rank == 1 && hand.cards[element].value != 1) {
 
-                if (hand.cards[element].rank == 1 && hand.cards[element].value != 1) {
+                hand.cards[element].value = 1;
 
-                    hand.cards[element].value = 1;
-
-                }
             }
         }
     }
 }
+
 
 
 
