@@ -57,7 +57,7 @@ struct CardArray{
 void getNewDeck(CardArray & deck){
 
     //Dont know what to do
-    deck.max_elements = 0;
+    deck.max_elements = DECKSIZE;
     deck.current_elements = 0;
 
     //Create pointer/array of Cards with size 52
@@ -147,6 +147,15 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
+void printHand(CardArray &hand){
+
+    for (int element = 0; element < hand.current_elements; element++){
+
+        cout << (hand.cards)[element].description + (hand.cards)[element].suit;
+
+    }
+
+}
 
 void initHand (CardArray &hand){
 
@@ -159,18 +168,18 @@ void initHand (CardArray &hand){
 
 }
 
-void deal(const CardArray &deck,  CardArray &hand){
+//function prototype should have constant for some reason??
+void deal(CardArray &deck, CardArray &hand){
 
-    hand.cards = new Card[MAXCARDS];
+    //Find where to take card and where to put card
+    int removeIndex = (deck.max_elements - deck.current_elements - 1);
+    int placeIndex = hand.current_elements;
 
-    int cardIndex = 0;
+    //Place card form top of deck to bottom of hand
+    hand.cards[placeIndex] = deck.cards[removeIndex];
 
-    while (hand.cards[cardIndex].value != 0){
-        cardIndex ++;
-    }
-
-    hand.cards[cardIndex] = deck.cards[0];
-
+    deck.current_elements ++;
+    hand.current_elements ++;
 
 }
 
@@ -185,8 +194,22 @@ int blackjack(CardArray & deck){
     initHand(dealerHand);
 
 
+
     deal(deck,playerHand);
 
+    deal(deck,dealerHand);
+
+    deal(deck,playerHand);
+
+    deal(deck,dealerHand);
+
+
+
+    cout << endl;
+    printHand(playerHand);
+    cout << endl;
+    printHand(dealerHand);
+    cout << endl;
 
     //Placeholder DELETE
     return(0);
@@ -226,11 +249,9 @@ int main(){
 
     printDeck(testDeck);
 
-    delete[] testDeck.cards;
+//    delete[] testDeck.cards;
 
-
-
-//    blackjack(testDeck);
+    blackjack(testDeck);
 
 
 
