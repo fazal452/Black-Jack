@@ -15,6 +15,7 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 //Part 2 Library
 const int MAXCARDS = 12;
 const int WINNUM = 21;
+const int DEALERTHRESHOLD = 17;
 //Part 3 Library
 //Part 4 Library
 //Part 5 Library
@@ -178,7 +179,6 @@ bool playerHit(){
         return false;
     }
 
-
 }
 
 bool isBust(int score){
@@ -244,6 +244,7 @@ int blackjack(CardArray & deck){
     CardArray playerHand;
     CardArray dealerHand;
 
+    //Initialize each hand
     initHand(playerHand);
     initHand(dealerHand);
 
@@ -262,7 +263,6 @@ int blackjack(CardArray & deck){
 
     cout << "\n*DEALER*: ";
     printHand(dealerHand);
-
 
     //Give a Card to Player
     deal(deck,playerHand);
@@ -286,19 +286,19 @@ int blackjack(CardArray & deck){
 
     //Player sole 21
     if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) != WINNUM)){
-        cout << "\n YOU WIN!!!";
+        cout << "\nYOU WIN!!!";
         return 1;
     }
 
     //Dealer sole 21
     else if((handScore(playerHand) != WINNUM) & (handScore(dealerHand) == WINNUM)){
-        cout << "\n YOU LOSE!!!";
+        cout << "\nYOU LOSE!!!";
         return -1;
     }
 
     //Draw with 21
     else if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) == WINNUM)){
-        cout << "\n TIE!!!";
+        cout << "\nTIE!!!";
         return 0;
     }
 
@@ -338,7 +338,7 @@ int blackjack(CardArray & deck){
     printHand(dealerHand);
 
     //Dealer keeps drawing till win or bust
-    while (((handScore(dealerHand)) < 17) && (handScore(dealerHand) < handScore(playerHand))){
+    while (((handScore(dealerHand)) < DEALERTHRESHOLD) && (handScore(dealerHand) < handScore(playerHand))){
 
         deal(deck,dealerHand);
 
@@ -355,44 +355,108 @@ int blackjack(CardArray & deck){
 
     //Determine Results
 
-    //Check for any second rounds wins
-
     //Player scores more
     if(handScore(playerHand) > handScore(dealerHand)){
-        cout << "\n YOU WIN!!!";
+        cout << "\nYOU WIN!!!";
         return 1;
     }
 
     //Dealer scores more
     if(handScore(playerHand) < handScore(dealerHand)){
-        cout << "\n YOU LOST!!!";
+        cout << "\nYOU LOST!!!";
         return -1;
     }
 
     //Tie
     if(handScore(playerHand) == handScore(dealerHand)){
-        cout << "\n YOU TIES!!!";
+        cout << "\nYOU TIES!!!";
         return 0;
     }
 
+}
 
-    //Placeholder DELETE
-    return(0);
+
+//************************ Part 3 ************************//
+
+bool playerToPlay(int gamesPlayed){
+
+    char choice;
+
+    if (gamesPlayed == 0){
+        cout << "\nWELCOME TO BLACKJACK\n--------------\n";
+        cout << "Do you want to play a hand of blackjack (y to play)? :";
+    }
+    else{
+        cout << "\nDo you want to play another hand of blackjack (y to play)? :";
+    }
+
+    cin >> choice;
+
+    choice = tolower(choice);
+
+    cin.clear();
+    cin.ignore(10000,'\n');
+
+    if (choice == 'y'){
+        return true;
+    }
+
+    else{
+        return false;
+    }
+
 }
 
 
 
 
+int blackJackTrack(CardArray &deck){
+
+    int gamesPlayed = 0;
+    int wins = 0;
+    int losses = 0;
+    int draws = 0;
+    int result;
+
+    bool playing = playerToPlay(gamesPlayed);
+
+    while (playing){
+
+        result = blackjack(deck);
+
+        gamesPlayed++;
+
+        if (result == 1){
+            wins ++;
+        }
+        else if (result == 0){
+            draws ++;
+        }
+        else if (result == -1){
+            losses ++;
+        }
+
+        result = NULL;
+
+
+        playing = playerToPlay(gamesPlayed);
+    }
+
+    cout << "\nThanks for playing, you played " << gamesPlayed << " games and your record was:\n";
+    cout << "wins: " << wins << endl;
+    cout << "losses: " << losses << endl;
+    cout << "draws: " << draws << endl;
+
+
+    return(0);
+
+
+
+}
 
 
 
 
-
-
-
-
-
-//************************ Part 3 ************************//
 
 //************************ Part 4 ************************//
 
@@ -416,7 +480,7 @@ int main(){
 
 //    delete[] testDeck.cards;
 
-    blackjack(testDeck);
+    blackJackTrack(testDeck);
 
 
 
