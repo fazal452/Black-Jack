@@ -148,6 +148,32 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
+bool playerHit(char choice){
+
+    while (cin.fail()){
+        cin.clear();
+        cin.ignore(10000,'\n');
+
+        cout << "User input invalid, Please try again: ";
+        cin >> choice;
+    }
+
+    cin.clear();
+    cin.ignore(10000,'\n');
+
+    choice = tolower(choice);
+
+    if (choice == 'h'){
+        return true;
+    }
+
+    else{
+        return false;
+    }
+
+
+}
+
 bool isBust(int score){
 
     if (score > WINNUM){
@@ -278,21 +304,26 @@ int blackjack(CardArray & deck){
     char choice;
     cout << "Enter h to hit or s to stand: ";
     cin >> choice;
+    cout << endl;
 
-    // todo INPUT CHECK / lower..
-
-    while(choice == 'h'){
+    while(playerHit(choice)){
 
         deal(deck,playerHand);
-
         cout << "+PLAYER+: ";
         printHand(playerHand);
 
-        cout << "\nEnter h to hit or s to stand: ";
-        cin >> choice;
+        if (isBust(handScore(playerHand))){
 
+            cout << "\n*DEALER*: ";
+            printHand(dealerHand);
+
+            cout << "\n\nBUST! YOU LOSE";
+            return -1;
+
+        }
 
     }
+
 
 
 
