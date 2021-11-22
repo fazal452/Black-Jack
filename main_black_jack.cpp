@@ -556,11 +556,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     if (dealerUpCard >= 7){
 
         if (playerScore < 17){
-            cout << "you should hit\n";
+            cout << "You should HIT\nDealer's up card is good at " << dealerUpCard << " but your score is only " << playerScore << endl;
         }
 
         else{
-            cout << "you should stand\n";
+            cout << "You should STAND\nDealer's up card is good at "<< dealerUpCard << " but your score is " << playerScore << endl;
         }
 
     }
@@ -568,11 +568,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     else if(dealerUpCard >= 4 && dealerUpCard <= 6){
 
         if (playerScore < 12){
-            cout << "you should hit\n";
+            cout << "You should HIT\nDealer's up card is bad at " << dealerUpCard << " and your score is only " << playerScore << endl;
         }
 
         else{
-            cout << "you should stand\n";
+            cout << "You should STAND\nDealer's up card is bad at " << dealerUpCard << " and your score is good enough at " << playerScore << endl;;
         }
 
     }
@@ -580,11 +580,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     else if(dealerUpCard <= 3){
 
         if (playerScore < 13){
-            cout << "you should hit\n";
+            cout << "You should HIT\nDealer's up card is fair at " << dealerUpCard << " but your score is only " << playerScore << endl;;
         }
 
         else{
-            cout << "you should stand\n";
+            cout << "You should STAND\nDealer's up card is fair at " << dealerUpCard << " and your score is good enough at " << playerScore << endl;;
         }
 
     }
