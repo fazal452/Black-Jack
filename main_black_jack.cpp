@@ -23,6 +23,7 @@ struct CardArray;
 //Part 4 Library
 void aceBustAdjust(CardArray & hand);
 //Part 5 Library
+void advisor(CardArray &dealerHand, CardArray &playerHand);
 
 //************************ Part 1 ************************//
 
@@ -153,9 +154,12 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
-bool playerHit(){
+bool playerHit(CardArray &dealerHand, CardArray &playerHand){
 
     char choice;
+
+    advisor(dealerHand,playerHand);
+
     cout << "Enter h to hit or s to stand:";
     cin >> choice;
     //cout << endl;
@@ -282,8 +286,6 @@ int blackjack(CardArray & deck){
     printHand(dealerHand);
     cout << "??";
 
-    //Give a Card to Dealer
-    deal(deck,dealerHand);
 
 
     //Check for any second rounds wins
@@ -329,12 +331,11 @@ int blackjack(CardArray & deck){
     }
 
 
-
     //Start Playing
     cout << "\n\nDEALING TO PLAYER\n---------------\n";
 
     //Get Choice
-    bool hit = playerHit();
+    bool hit = playerHit(dealerHand,playerHand);
 
     while(hit){
 
@@ -354,10 +355,12 @@ int blackjack(CardArray & deck){
             cout << "\nBUST! YOU LOSE";
             return -1;
         }
-        //Update wheather to hit or not
-        hit = playerHit();
+        //Update whether to hit or not
+        hit = playerHit(dealerHand,playerHand);
 
     }
+
+    deal(deck,dealerHand);
 
     //Dealer Plays out his hand
     cout << "\n\nDEALING TO DEALER\n---------------\n";
@@ -528,17 +531,63 @@ void aceBustAdjust(CardArray & hand){
 
 //************************ Part 5 ************************//
 
+
+int upCard(CardArray &hand){
+
+    int maxCard = 0;
+
+    for(int element = 0; element < hand.current_elements;element++){
+
+        maxCard = max(maxCard,hand.cards[element].value);
+    }
+
+    return maxCard;
+}
+
 void advisor(CardArray &dealerHand, CardArray &playerHand){
     int dealerScore = handScore(dealerHand);
     int playerScore = handScore(playerHand);
 
-    if (playerScore > 17){
+    int dealerUpCard = upCard(dealerHand);
+    int playerUpCard = upCard(playerHand);
 
-        cout << 'hi';
+
+
+    if (dealerUpCard >= 7){
+
+        if (playerScore < 17){
+            cout << "you should hit\n";
+        }
+
+        else{
+            cout << "you should stand\n";
+        }
+
     }
 
+    else if(dealerUpCard >= 4 && dealerUpCard <= 6){
 
+        if (playerScore < 12){
+            cout << "you should hit\n";
+        }
 
+        else{
+            cout << "you should stand\n";
+        }
+
+    }
+
+    else if(dealerUpCard <= 3){
+
+        if (playerScore < 13){
+            cout << "you should hit\n";
+        }
+
+        else{
+            cout << "you should stand\n";
+        }
+
+    }
 
 }
 
@@ -570,14 +619,6 @@ int main(){
 //    delete[] testDeck.cards;
 
     blackJackTrack(testDeck);
-
-
-
-//Part 2
-
-
-
-
 
 
 
