@@ -16,8 +16,12 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 const int MAXCARDS = 12;
 const int WINNUM = 21;
 const int DEALERTHRESHOLD = 17;
+
+struct Card;
+struct CardArray;
 //Part 3 Library
 //Part 4 Library
+void aceBustAdjust(CardArray & hand);
 //Part 5 Library
 
 //************************ Part 1 ************************//
@@ -284,6 +288,10 @@ int blackjack(CardArray & deck){
 
     //Check for any second rounds wins
 
+    aceBustAdjust(playerHand);
+    aceBustAdjust(dealerHand);
+
+
     //Player sole 21
     if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) != WINNUM)){
         cout << "\nYOU WIN!!!";
@@ -319,6 +327,8 @@ int blackjack(CardArray & deck){
         cout << endl;
 
         //Check For Bust
+        aceBustAdjust(playerHand);
+
         if (isBust(handScore(playerHand))){
 
             cout << "\n*DEALER*: ";
@@ -345,6 +355,7 @@ int blackjack(CardArray & deck){
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
 
+        aceBustAdjust(dealerHand);
         if(isBust(handScore(dealerHand))){
 
             cout << "\n\nDealer is bust, you win.";
@@ -479,11 +490,24 @@ int blackJackTrack(CardArray &deck){
 
 //Aces count as 11 until you bust, in which case they become 1's
 
-bool aceBust(){
+void aceBustAdjust(CardArray & hand){
 
+    while(isBust(handScore(hand))){
 
+        for(int element = 0; element < hand.current_elements;element++){
 
+            if (isBust(handScore(hand))) {
+
+                if (hand.cards[element].rank == 1 && hand.cards[element].value != 1) {
+
+                    hand.cards[element].value = 1;
+
+                }
+            }
+        }
+    }
 }
+
 
 
 //************************ Part 5 ************************//
