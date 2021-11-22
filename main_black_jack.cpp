@@ -294,7 +294,7 @@ int blackjack(CardArray & deck){
 
     //Player sole 21
     if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) != WINNUM)){
-        cout << "\n+PLAYER+: ";
+        cout << "\n\n+PLAYER+: ";
         printHand(playerHand);
 
         cout << "\n*DEALER*: ";
@@ -306,7 +306,7 @@ int blackjack(CardArray & deck){
 
     //Dealer sole 21
     else if((handScore(playerHand) != WINNUM) & (handScore(dealerHand) == WINNUM)){
-        cout << "\n+PLAYER+: ";
+        cout << "\n\n+PLAYER+: ";
         printHand(playerHand);
 
         cout << "\n*DEALER*: ";
@@ -318,7 +318,7 @@ int blackjack(CardArray & deck){
 
     //Draw with 21
     else if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) == WINNUM)){
-        cout << "\n+PLAYER+: ";
+        cout << "\n\n+PLAYER+: ";
         printHand(playerHand);
 
         cout << "\n*DEALER*: ";
@@ -349,9 +349,9 @@ int blackjack(CardArray & deck){
 
         if (isBust(handScore(playerHand))){
 
-            cout << "\n*DEALER*: ";
-            printHand(dealerHand);
-            cout << "\n\nBUST! YOU LOSE";
+//            cout << "\n*DEALER*: ";
+//            printHand(dealerHand);
+            cout << "\nBUST! YOU LOSE";
             return -1;
         }
         //Update wheather to hit or not
@@ -398,7 +398,7 @@ int blackjack(CardArray & deck){
 
     //Tie
     if(handScore(playerHand) == handScore(dealerHand)){
-        cout << "\nYOU TIES!!!";
+        cout << "\nYOU TIED!!!";
         return 0;
     }
 
@@ -431,7 +431,7 @@ bool playerToPlay(int gamesPlayed){
         cout << "Do you want to play a hand of blackjack (y to play)? :";
     }
     else{
-        cout << "\nDo you want to play another hand of blackjack (y to play)? :";
+        cout << "\n\nDo you want to play another hand of blackjack (y to play)? :";
     }
 
     cin >> choice;
