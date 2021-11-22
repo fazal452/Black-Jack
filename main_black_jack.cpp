@@ -14,6 +14,7 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 
 //Part 2 Library
 const int MAXCARDS = 12;
+const int WINNUM = 21;
 //Part 3 Library
 //Part 4 Library
 //Part 5 Library
@@ -147,6 +148,14 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
+bool isBust(int score){
+
+    if (score > WINNUM){
+        return (true);
+    }
+    return false;
+}
+
 int handScore(const CardArray &hand){
 
     int score = 0;
@@ -163,7 +172,7 @@ void printHand(CardArray &hand){
 
     for (int element = 0; element < hand.current_elements; element++){
 
-        cout << (hand.cards)[element].description + (hand.cards)[element].suit;
+        cout << (hand.cards)[element].description + (hand.cards)[element].suit + " ";
 
     }
 
@@ -206,27 +215,42 @@ int blackjack(CardArray & deck){
     initHand(dealerHand);
 
     //Deal Hand to both players
-
-    cout << handScore(playerHand) << endl;
-
+    //Give a Card to Player
     deal(deck,playerHand);
-    cout << handScore(playerHand) << endl;
-    deal(deck,playerHand);
-    cout << handScore(playerHand) << endl;
 
-    cout << handScore(dealerHand) << endl;
+    //Give a card to Dealer
     deal(deck,dealerHand);
-    cout << handScore(dealerHand) << endl;
-    deal(deck,dealerHand);
-    cout << handScore(dealerHand) << endl;
 
 
-    cout << endl;
+    //Print First Hand
+    cout << "\nDEAL FIRST CARD\n---------------\n";
+    cout << "+PLAYER+: ";
     printHand(playerHand);
-    cout << endl;
+
+    cout << "\n*DEALER*: ";
     printHand(dealerHand);
 
-    //Ask for hit or keep going
+
+    //Give a Card to Player
+    deal(deck,playerHand);
+
+    //Give Dealer card after printing in order for mystery
+
+    //Print Second Hand
+    cout << "\n\nDEAL SECOND CARD\n---------------\n";
+    cout << "+PLAYER+: ";
+    printHand(playerHand);
+
+    cout << "\n*DEALER*: ";
+    printHand(dealerHand);
+    cout << "??";
+
+    //Give a Card to Dealer
+    deal(deck,dealerHand);
+
+
+
+    //Get User input
 
 
     //Dealer Plays out his hand
