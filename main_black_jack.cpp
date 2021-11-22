@@ -148,20 +148,27 @@ void shuffleDeck(CardArray & deck){
 
 //************************ Part 2 ************************//
 
-bool playerHit(char choice){
+bool playerHit(){
 
-    while (cin.fail()){
+    char choice;
+    cout << "Enter h to hit or s to stand:";
+    cin >> choice;
+    //cout << endl;
+
+    choice = tolower(choice);
+
+    while (choice != 's' && choice != 'h'){
         cin.clear();
         cin.ignore(10000,'\n');
 
-        cout << "User input invalid, Please try again: ";
+        cout << "\nUser input invalid, Please try again:";
         cin >> choice;
+        choice = tolower(choice);
     }
 
     cin.clear();
     cin.ignore(10000,'\n');
 
-    choice = tolower(choice);
 
     if (choice == 'h'){
         return true;
@@ -301,36 +308,72 @@ int blackjack(CardArray & deck){
     cout << "\n\nDEALING TO PLAYER\n---------------\n";
 
     //Get Choice
-    char choice;
-    cout << "Enter h to hit or s to stand: ";
-    cin >> choice;
-    cout << endl;
+    bool hit = playerHit();
 
-    while(playerHit(choice)){
+    while(hit){
 
+        //Deal Player a Card
         deal(deck,playerHand);
         cout << "+PLAYER+: ";
         printHand(playerHand);
+        cout << endl;
 
+        //Check For Bust
         if (isBust(handScore(playerHand))){
 
             cout << "\n*DEALER*: ";
             printHand(dealerHand);
-
             cout << "\n\nBUST! YOU LOSE";
             return -1;
+        }
+        //Update wheather to hit or not
+        hit = playerHit();
 
+    }
+
+    //Dealer Plays out his hand
+    cout << "\n\nDEALING TO DEALER\n---------------\n";
+
+    cout << "*DEALER*: ";
+    printHand(dealerHand);
+
+    //Dealer keeps drawing till win or bust
+    while (((handScore(dealerHand)) < 17) && (handScore(dealerHand) < handScore(playerHand))){
+
+        deal(deck,dealerHand);
+
+        cout << "\n*DEALER*: ";
+        printHand(dealerHand);
+
+        if(isBust(handScore(dealerHand))){
+
+            cout << "\n\nDealer is bust, you win.";
+            return(1);
         }
 
     }
 
+    //Determine Results
 
+    //Check for any second rounds wins
 
+    //Player scores more
+    if(handScore(playerHand) > handScore(dealerHand)){
+        cout << "\n YOU WIN!!!";
+        return 1;
+    }
 
-    //Dealer Plays out his hand
+    //Dealer scores more
+    if(handScore(playerHand) < handScore(dealerHand)){
+        cout << "\n YOU LOST!!!";
+        return -1;
+    }
 
-
-    //Show game
+    //Tie
+    if(handScore(playerHand) == handScore(dealerHand)){
+        cout << "\n YOU TIES!!!";
+        return 0;
+    }
 
 
     //Placeholder DELETE
