@@ -378,6 +378,22 @@ int blackjack(CardArray & deck){
 
 //************************ Part 3 ************************//
 
+
+void reshuffle (CardArray &deck){
+
+    //IF Deck will finish, shuffle up deck
+    if (deck.current_elements >= DECKSIZE-MAXCARDS){
+
+        shuffleDeck(deck);
+
+        deck.current_elements = 0;
+        deck.max_elements = DECKSIZE;
+
+    }
+}
+
+
+
 bool playerToPlay(int gamesPlayed){
 
     char choice;
@@ -423,6 +439,8 @@ int blackJackTrack(CardArray &deck){
     while (playing){
 
         result = blackjack(deck);
+
+        reshuffle(deck);
 
         gamesPlayed++;
 
