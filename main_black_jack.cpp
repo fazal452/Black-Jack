@@ -393,7 +393,6 @@ void reshuffle (CardArray &deck){
 }
 
 
-
 bool playerToPlay(int gamesPlayed){
 
     char choice;
@@ -477,6 +476,15 @@ int blackJackTrack(CardArray &deck){
 
 
 //************************ Part 4 ************************//
+
+//Aces count as 11 until you bust, in which case they become 1's
+
+bool aceBust(){
+
+
+
+}
+
 
 //************************ Part 5 ************************//
 
