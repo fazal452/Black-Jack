@@ -581,16 +581,16 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     int dealerUpCard = upCard(dealerHand);
     int playerUpCard = upCard(playerHand);
 
-
+    cout << "ADVISOR: ";
 
     if (dealerUpCard >= GOODCARD){
 
         if (playerScore < GOODSCORE){
-            cout << "You should HIT\nDealer's up card is good at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";
+            cout << "You should HIT\n         Dealer's up card is good at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";
         }
 
         else{
-            cout << "You should STAND\nDealer's up card is good at "<< dealerUpCard << " but your score is " << playerScore <<  "\n";
+            cout << "You should STAND\n         Dealer's up card is good at "<< dealerUpCard << " but your score is " << playerScore <<  "\n";
         }
 
     }
@@ -598,11 +598,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     else if(dealerUpCard > FAIRCARD && dealerUpCard < GOODCARD){
 
         if (playerScore < FAIRSCORE){
-            cout << "You should HIT\nDealer's up card is bad at " << dealerUpCard << " and your score is only " << playerScore <<  "\n";
+            cout << "You should HIT\n         Dealer's up card is bad at " << dealerUpCard << " and your score is only " << playerScore <<  "\n";
         }
 
         else{
-            cout << "You should STAND\nDealer's up card is bad at " << dealerUpCard << " and your score is good enough at " << playerScore <<  "\n";;
+            cout << "You should STAND\n         Dealer's up card is bad at " << dealerUpCard << " and your score is good enough at " << playerScore <<  "\n";;
         }
 
     }
@@ -610,11 +610,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     else if(dealerUpCard <= FAIRCARD){
 
         if (playerScore < FAIRSCORE + 1){
-            cout << "You should HIT\nDealer's up card is fair at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";;
+            cout << "You should HIT\n         Dealer's up card is fair at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";;
         }
 
         else{
-            cout << "You should STAND\nDealer's up card is fair at " << dealerUpCard << " and your score is good enough at " << playerScore << "\n";
+            cout << "You should STAND\n         Dealer's up card is fair at " << dealerUpCard << " and your score is good enough at " << playerScore << "\n";
         }
 
     }
@@ -629,17 +629,18 @@ int main(){
 
     getNewDeck(testDeck);
 
+    cout << "STANDARD DECK:\n";
     printDeck(testDeck);
 
-    cout << "\n\n";
-
+    cout << "\n";
+    cout << "SHUFFLED DECK:\n";
     shuffleDeck(testDeck);
 
     printDeck(testDeck);
 
-//    delete[] testDeck.cards;
-
     blackJackTrack(testDeck);
+
+    delete[] testDeck.cards;
 
 
     return(0);
