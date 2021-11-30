@@ -29,7 +29,9 @@ int blackjack(CardArray & deck);
 
 //Part 4 Library
 void aceBustAdjust(CardArray & hand);
+
 //Part 5 Library
+int upCard(CardArray &hand);
 void advisor(CardArray &dealerHand, CardArray &playerHand);
 
 //************************ Part 1 ************************//
@@ -564,6 +566,15 @@ int upCard(CardArray &hand){
 }
 
 void advisor(CardArray &dealerHand, CardArray &playerHand){
+
+    const int GOODCARD = 7;
+    const int FAIRCARD = 3;
+
+    const int GOODSCORE = 17;
+    const int FAIRSCORE = 12;
+
+
+
     int dealerScore = handScore(dealerHand);
     int playerScore = handScore(playerHand);
 
@@ -572,9 +583,9 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
 
 
 
-    if (dealerUpCard >= 7){
+    if (dealerUpCard >= GOODCARD){
 
-        if (playerScore < 17){
+        if (playerScore < GOODSCORE){
             cout << "You should HIT\nDealer's up card is good at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";
         }
 
@@ -584,9 +595,9 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
 
     }
 
-    else if(dealerUpCard >= 4 && dealerUpCard <= 6){
+    else if(dealerUpCard > FAIRCARD && dealerUpCard < GOODCARD){
 
-        if (playerScore < 12){
+        if (playerScore < FAIRSCORE){
             cout << "You should HIT\nDealer's up card is bad at " << dealerUpCard << " and your score is only " << playerScore <<  "\n";
         }
 
@@ -596,9 +607,9 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
 
     }
 
-    else if(dealerUpCard <= 3){
+    else if(dealerUpCard <= FAIRCARD){
 
-        if (playerScore < 13){
+        if (playerScore < FAIRSCORE + 1){
             cout << "You should HIT\nDealer's up card is fair at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";;
         }
 
