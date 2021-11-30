@@ -3,8 +3,6 @@
 #include <iomanip>
 #include <ios>
 #include <string>
-
-
 using namespace ::std;
 
 //Part 1 Library
@@ -16,10 +14,19 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 const int MAXCARDS = 12;
 const int WINNUM = 21;
 const int DEALERTHRESHOLD = 17;
-
 struct Card;
 struct CardArray;
+
 //Part 3 Library
+void deleteHands(CardArray &dealerHand, CardArray &playerHand);
+bool playerHit(CardArray &dealerHand, CardArray &playerHand);
+bool isBust(int score);
+int handScore(const CardArray& hand);
+void printHand(CardArray &hand);
+void initHand (CardArray &hand);
+void deal(CardArray &deck, CardArray &hand);
+int blackjack(CardArray & deck);
+
 //Part 4 Library
 void aceBustAdjust(CardArray & hand);
 //Part 5 Library
@@ -63,7 +70,6 @@ struct CardArray{
 
 void getNewDeck(CardArray & deck){
 
-    //Dont know what to do
     deck.max_elements = DECKSIZE;
     deck.current_elements = 0;
 
@@ -152,7 +158,16 @@ void shuffleDeck(CardArray & deck){
 
 }
 
+
+
 //************************ Part 2 ************************//
+void deleteHands(CardArray &dealerHand, CardArray &playerHand){
+
+    delete [] dealerHand.cards;
+    delete [] playerHand.cards;
+
+}
+
 
 bool playerHit(CardArray &dealerHand, CardArray &playerHand){
 
@@ -197,7 +212,7 @@ bool isBust(int score){
     return false;
 }
 
-int handScore(const CardArray &hand){
+int handScore(const CardArray& hand){
 
     int score = 0;
 
@@ -302,7 +317,8 @@ int blackjack(CardArray & deck){
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
 
-        cout << "\nYOU WIN!!!";
+        cout << "\n\nYOU WIN!!!";
+        deleteHands(dealerHand,playerHand);
         return 1;
     }
 
@@ -315,6 +331,7 @@ int blackjack(CardArray & deck){
         printHand(dealerHand);
 
         cout << "\nYOU LOSE!!!";
+        deleteHands(dealerHand,playerHand);
         return -1;
     }
 
@@ -327,6 +344,7 @@ int blackjack(CardArray & deck){
         printHand(dealerHand);
 
         cout << "\nTIE!!!";
+        deleteHands(dealerHand,playerHand);
         return 0;
     }
 
@@ -341,7 +359,7 @@ int blackjack(CardArray & deck){
 
         //Deal Player a Card
         deal(deck,playerHand);
-        cout << "+PLAYER+: ";
+        cout << "\n+PLAYER+: ";
         printHand(playerHand);
         cout << endl;
 
@@ -353,6 +371,7 @@ int blackjack(CardArray & deck){
 //            cout << "\n*DEALER*: ";
 //            printHand(dealerHand);
             cout << "\nBUST! YOU LOSE";
+            deleteHands(dealerHand,playerHand);
             return -1;
         }
         //Update whether to hit or not
@@ -380,6 +399,7 @@ int blackjack(CardArray & deck){
         if(isBust(handScore(dealerHand))){
 
             cout << "\n\nDealer is bust, you win.";
+            deleteHands(dealerHand,playerHand);
             return(1);
         }
 
@@ -390,18 +410,21 @@ int blackjack(CardArray & deck){
     //Player scores more
     if(handScore(playerHand) > handScore(dealerHand)){
         cout << "\nYOU WIN!!!";
+        deleteHands(dealerHand,playerHand);
         return 1;
     }
 
     //Dealer scores more
     if(handScore(playerHand) < handScore(dealerHand)){
         cout << "\nYOU LOST!!!";
+        deleteHands(dealerHand,playerHand);
         return -1;
     }
 
     //Tie
     if(handScore(playerHand) == handScore(dealerHand)){
         cout << "\nYOU TIED!!!";
+        deleteHands(dealerHand,playerHand);
         return 0;
     }
 
@@ -499,11 +522,7 @@ int blackJackTrack(CardArray &deck){
 
     return(0);
 
-
-
 }
-
-
 
 
 
@@ -556,11 +575,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     if (dealerUpCard >= 7){
 
         if (playerScore < 17){
-            cout << "You should HIT\nDealer's up card is good at " << dealerUpCard << " but your score is only " << playerScore << endl;
+            cout << "You should HIT\nDealer's up card is good at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";
         }
 
         else{
-            cout << "You should STAND\nDealer's up card is good at "<< dealerUpCard << " but your score is " << playerScore << endl;
+            cout << "You should STAND\nDealer's up card is good at "<< dealerUpCard << " but your score is " << playerScore <<  "\n";
         }
 
     }
@@ -568,11 +587,11 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     else if(dealerUpCard >= 4 && dealerUpCard <= 6){
 
         if (playerScore < 12){
-            cout << "You should HIT\nDealer's up card is bad at " << dealerUpCard << " and your score is only " << playerScore << endl;
+            cout << "You should HIT\nDealer's up card is bad at " << dealerUpCard << " and your score is only " << playerScore <<  "\n";
         }
 
         else{
-            cout << "You should STAND\nDealer's up card is bad at " << dealerUpCard << " and your score is good enough at " << playerScore << endl;;
+            cout << "You should STAND\nDealer's up card is bad at " << dealerUpCard << " and your score is good enough at " << playerScore <<  "\n";;
         }
 
     }
@@ -580,25 +599,16 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     else if(dealerUpCard <= 3){
 
         if (playerScore < 13){
-            cout << "You should HIT\nDealer's up card is fair at " << dealerUpCard << " but your score is only " << playerScore << endl;;
+            cout << "You should HIT\nDealer's up card is fair at " << dealerUpCard << " but your score is only " << playerScore <<  "\n";;
         }
 
         else{
-            cout << "You should STAND\nDealer's up card is fair at " << dealerUpCard << " and your score is good enough at " << playerScore << endl;;
+            cout << "You should STAND\nDealer's up card is fair at " << dealerUpCard << " and your score is good enough at " << playerScore << "\n";
         }
 
     }
 
 }
-
-
-
-
-
-
-
-
-
 
 int main(){
 
@@ -619,7 +629,6 @@ int main(){
 //    delete[] testDeck.cards;
 
     blackJackTrack(testDeck);
-
 
 
     return(0);
