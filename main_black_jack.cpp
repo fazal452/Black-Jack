@@ -16,8 +16,10 @@ const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","
 const int MAXCARDS = 12;
 const int WINNUM = 21;
 const int DEALERTHRESHOLD = 17;
+
 struct Card;
 struct CardArray;
+
 void deleteHands(CardArray &dealerHand, CardArray &playerHand);
 bool playerHit(CardArray &dealerHand, CardArray &playerHand);
 bool isBust(int score);
@@ -126,14 +128,15 @@ void getNewDeck(CardArray & deck){
 
 //Print out the Deck
 void printDeck(const CardArray & deck){
-
+    //start at card 0
     int card_count = 0;
 
-    for (int suit = 0; suit <= 3; suit++){
+    for (int suit = 0; suit < NUMOFSUITS; suit++){
 
-        for (int rank = 0; rank < 13; rank++){
+        for (int rank = 0; rank < NUMOFRANKS; rank++){
 
-            card_count = suit*13 + rank;
+            //Index to Card number
+            card_count = suit*NUMOFRANKS + rank;
 
             cout << (deck.cards)[card_count].description + (deck.cards)[card_count].suit + " ";
         }
@@ -168,7 +171,7 @@ void shuffleDeck(CardArray & deck){
 
 //************************************ Part 2 ************************************//
 void deleteHands(CardArray &dealerHand, CardArray &playerHand){
-
+    //Free up space of Hands
     delete [] dealerHand.cards;
     delete [] playerHand.cards;
 
@@ -177,10 +180,13 @@ void deleteHands(CardArray &dealerHand, CardArray &playerHand){
 
 bool playerHit(CardArray &dealerHand, CardArray &playerHand){
 
+    //Store variable for choice
     char choice;
 
+    //Run Advisor to assess hands
     advisor(dealerHand,playerHand);
 
+    //Take input
     cout << "Enter h to hit or s to stand:";
     cin >> choice;
     //cout << endl;
@@ -199,7 +205,7 @@ bool playerHit(CardArray &dealerHand, CardArray &playerHand){
     cin.clear();
     cin.ignore(10000,'\n');
 
-
+    //return True if user enters char h
     if (choice == 'h'){
         return true;
     }
