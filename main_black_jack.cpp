@@ -30,7 +30,6 @@ void deal(CardArray &deck, CardArray &hand);
 int blackjack(CardArray & deck);
 
 //Part 3 Library
-
 const int WIN = 1;
 const int TIE = 0;
 const int LOSE = -1;
@@ -38,7 +37,6 @@ const int LOSE = -1;
 void reshuffle (CardArray &deck);
 bool playerToPlay(int gamesPlayed);
 int blackJackTrack(CardArray &deck);
-
 
 //Part 4 Library
 void aceBustAdjust(CardArray & hand);
@@ -130,9 +128,6 @@ void getNewDeck(CardArray & deck){
             card_count ++;
         }
     }
-
-
-
 }
 
 //Print out the Deck
@@ -158,24 +153,22 @@ void printDeck(const CardArray & deck){
 //Shuffle a Given Deck
 void shuffleDeck(CardArray & deck){
 
+    //set random speed
     srand(time(nullptr));
 
     //Use a Temp variable to swap multiple indicies at random
-
     for(int swap_index = 0; swap_index < DECKSIZE; swap_index++){
 
+        //get random donor
         int swapee_index =  rand() % DECKSIZE;
 
-        Card temp;
+        //Create temp variable
+        Card temp = deck.cards[swap_index];
 
-        temp = deck.cards[swap_index];
-
+        //Swap two cards
         deck.cards[swap_index] = deck.cards[swapee_index];
-
         deck.cards[swapee_index] = temp;
-
     }
-
 }
 
 //************************************ Part 2 ************************************//
@@ -183,7 +176,6 @@ void deleteHands(CardArray &dealerHand, CardArray &playerHand){
     //Free up space of Hands
     delete [] dealerHand.cards;
     delete [] playerHand.cards;
-
 }
 
 
@@ -224,7 +216,6 @@ bool playerHit(CardArray &dealerHand, CardArray &playerHand){
     else{
         return false;
     }
-
 }
 
 //See if one has busted
@@ -247,7 +238,6 @@ int handScore(const CardArray& hand){
 
         score += hand.cards[element].value;
     }
-
     return score;
 }
 
@@ -257,9 +247,7 @@ void printHand(CardArray &hand){
     for (int element = 0; element < hand.current_elements; element++){
 
         cout << (hand.cards)[element].description + (hand.cards)[element].suit + " ";
-
     }
-
 }
 
 //Initialize one's hand
@@ -271,7 +259,6 @@ void initHand (CardArray &hand){
     hand.cards = new Card[MAXCARDS];
     hand.max_elements = MAXCARDS;
     hand.current_elements = 0;
-
 
 }
 
@@ -314,7 +301,6 @@ int blackjack(CardArray & deck){
     //Give a card to Dealer
     deal(deck,dealerHand);
 
-
     //Print First Hand
     cout << "\nDEAL FIRST CARD\n---------------\n";
     cout << "+PLAYER+: ";
@@ -336,7 +322,6 @@ int blackjack(CardArray & deck){
     cout << "\n*DEALER*: ";
     printHand(dealerHand);
     cout << "??";
-
 
 
     //If Player gets 21 natural
@@ -483,12 +468,13 @@ bool playerToPlay(int gamesPlayed){
 
     char choice;
 
+    //If first game
     if (gamesPlayed == 0){
         cout << "\nWELCOME TO BLACKJACK\n--------------\n";
-        cout << "Do you want to play a hand of blackjack (y to play)? :";
+        cout << "Do you want to play a hand of blackjack? (y to play) :";
     }
     else{
-        cout << "\n\nDo you want to play another hand of blackjack (y to play)? :";
+        cout << "\n\nDo you want to play another hand of blackjack? (y to play) :";
     }
 
     cin >> choice;
@@ -626,7 +612,6 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
             cout << "You should STAND\n         Dealer's up card score is good at "<< dealerUpCard
             << " but your score is " << playerScore <<  "\n";
         }
-
     }
 
     //If dealer has a FAIR card
@@ -641,7 +626,6 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
             cout << "You should STAND\n         Dealer's up card is bad at " << dealerUpCard
             << " and your score is good enough at " << playerScore <<  "\n";;
         }
-
     }
 
     //If Dealer has a BAD card
@@ -656,9 +640,7 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
             cout << "You should STAND\n         Dealer's up card score is fair at " << dealerUpCard
             << " and your score is good enough at " << playerScore << "\n";
         }
-
     }
-
 }
 
 //************************************  MAIN  ************************************//
@@ -675,7 +657,6 @@ int main(){
     cout << "\nSHUFFLED DECK:\n";
     shuffleDeck(testDeck);
     printDeck(testDeck);
-
 
     //Play the game of Black Jack
     blackJackTrack(testDeck);
