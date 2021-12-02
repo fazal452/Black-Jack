@@ -9,7 +9,7 @@ using namespace ::std;
 const int NUMOFSUITS = 4;
 const int NUMOFRANKS = 13;
 const int DECKSIZE = 52;
-const int SUITS[] = {6,3,4,5}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respectively
+const int SUITS[] = {83,72,68,67}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respectively
 const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
 //Part 2 Library
@@ -257,8 +257,9 @@ void initHand (CardArray &hand){
 
 }
 
-//function prototype should have constant for some reason??
 void deal(CardArray &deck, CardArray &hand){
+
+    reshuffle(deck);
 
     //Find where to take card and where to put card
     int removeIndex = (deck.max_elements - deck.current_elements - 1);
@@ -321,41 +322,37 @@ int blackjack(CardArray & deck){
     aceBustAdjust(dealerHand);
 
 
-    //Player sole 21
-    if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) != WINNUM)){
+    //If Player gets 21 natural
+    if(handScore(playerHand) == WINNUM){
+
+        deal(deck,dealerHand);
+        cout << "\n\nRESULTS \n---------------";
+
+        //If dealer doesnt have 21
+        //Player Wins
+        if(handScore(dealerHand) != WINNUM){
+
+            cout << "\n+PLAYER+: ";
+            printHand(playerHand);
+
+            cout << "\n*DEALER*: ";
+            printHand(dealerHand);
+
+            cout << "\n\nYOU WIN!!! BLACK JACK NATURAL";
+            deleteHands(dealerHand,playerHand);
+            return 1;
+
+        }
+
+        //If dealer have 21
+        //Player Tie
         cout << "\n\n+PLAYER+: ";
         printHand(playerHand);
 
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
 
-        cout << "\n\nYOU WIN!!!";
-        deleteHands(dealerHand,playerHand);
-        return 1;
-    }
-
-    //Dealer sole 21
-    else if((handScore(playerHand) != WINNUM) & (handScore(dealerHand) == WINNUM)){
-        cout << "\n\n+PLAYER+: ";
-        printHand(playerHand);
-
-        cout << "\n*DEALER*: ";
-        printHand(dealerHand);
-
-        cout << "\nYOU LOSE!!!";
-        deleteHands(dealerHand,playerHand);
-        return -1;
-    }
-
-    //Draw with 21
-    else if((handScore(playerHand) == WINNUM) & (handScore(dealerHand) == WINNUM)){
-        cout << "\n\n+PLAYER+: ";
-        printHand(playerHand);
-
-        cout << "\n*DEALER*: ";
-        printHand(dealerHand);
-
-        cout << "\nTIE!!!";
+        cout << "\nTIE!!! BOTH PLAYERS NATURAL";
         deleteHands(dealerHand,playerHand);
         return 0;
     }
@@ -410,7 +407,7 @@ int blackjack(CardArray & deck){
         aceBustAdjust(dealerHand);
         if(isBust(handScore(dealerHand))){
 
-            cout << "\n\nDealer is bust, you win.";
+            cout << "\n\nDEALER HAS BUSTED, YOU WIN!!";
             deleteHands(dealerHand,playerHand);
             return(1);
         }
@@ -418,6 +415,7 @@ int blackjack(CardArray & deck){
     }
 
     //Determine Results
+    cout << "\n\nRESULTS \n---------------";
 
     //Player scores more
     if(handScore(playerHand) > handScore(dealerHand)){
@@ -448,9 +446,12 @@ int blackjack(CardArray & deck){
 void reshuffle (CardArray &deck){
 
     //IF Deck will finish, shuffle up deck
-    if (deck.current_elements >= DECKSIZE-MAXCARDS){
+    if (deck.current_elements >= MAXCARDS-1){
 
         shuffleDeck(deck);
+
+        cout << "\n\nRESHUFFLED\n";
+        printDeck(deck);
 
         deck.current_elements = 0;
         deck.max_elements = DECKSIZE;
