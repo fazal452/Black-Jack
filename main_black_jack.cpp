@@ -310,7 +310,6 @@ int blackjack(CardArray & deck){
 
     //Give a Card to Player
     deal(deck,playerHand);
-
     //Give Dealer card after printing in order for mystery
 
     //Print Second Hand
@@ -322,16 +321,15 @@ int blackjack(CardArray & deck){
     printHand(dealerHand);
     cout << "??";
 
+    //deal second card to dealer
+    deal(deck,dealerHand);
 
     //If Player gets 21 natural
     if(handScore(playerHand) == WINNUM){
 
-        deal(deck,dealerHand);
-
         //If dealer doesnt have 21
         //Player Wins
         if(handScore(dealerHand) != WINNUM){
-
 
             cout << "\n*DEALER*: ";
             printHand(dealerHand);
@@ -339,7 +337,6 @@ int blackjack(CardArray & deck){
             cout << "\n\nBLACK JACK YOU WIN!!!";
             deleteHands(dealerHand,playerHand);
             return WIN;
-
         }
 
         //If dealer have 21
@@ -351,6 +348,22 @@ int blackjack(CardArray & deck){
         deleteHands(dealerHand,playerHand);
         return TIE;
     }
+
+    //Check for Dealer 21
+    if(handScore(dealerHand) == WINNUM){
+
+        //If dealer have 21
+        //Player Lose
+        cout << "\n*DEALER*: ";
+        printHand(dealerHand);
+
+        cout << "\nLOSE!!!! DEALER GOT BLACKJACK";
+        deleteHands(dealerHand,playerHand);
+        return LOSE;
+    }
+
+
+
 
 
     //Start Playing
@@ -383,9 +396,6 @@ int blackjack(CardArray & deck){
 
     //Dealer Plays out his hand
     cout << "\n\nDEALING TO DEALER\n---------------\n";
-
-    //Finally deal second card to dealer
-    deal(deck,dealerHand);
 
     cout << "*DEALER*: ";
     printHand(dealerHand);
