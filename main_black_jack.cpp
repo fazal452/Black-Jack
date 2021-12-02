@@ -147,7 +147,6 @@ void printDeck(const CardArray & deck){
         }
         cout << endl;
     }
-
 }
 
 //Shuffle a Given Deck
@@ -329,19 +328,15 @@ int blackjack(CardArray & deck){
 
         deal(deck,dealerHand);
 
-        cout << "\n\nRESULTS \n---------------";
-
         //If dealer doesnt have 21
         //Player Wins
         if(handScore(dealerHand) != WINNUM){
 
-            cout << "\n+PLAYER+: ";
-            printHand(playerHand);
 
             cout << "\n*DEALER*: ";
             printHand(dealerHand);
 
-            cout << "\n\nYOU WIN!!! BLACK JACK NATURAL";
+            cout << "\n\nBLACK JACK YOU WIN!!!";
             deleteHands(dealerHand,playerHand);
             return WIN;
 
@@ -349,13 +344,10 @@ int blackjack(CardArray & deck){
 
         //If dealer have 21
         //Player Tie
-        cout << "\n\n+PLAYER+: ";
-        printHand(playerHand);
-
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
 
-        cout << "\nTIE!!! BOTH PLAYERS NATURAL";
+        cout << "\nTIE!!! BOTH PLAYERS BLACK JACK";
         deleteHands(dealerHand,playerHand);
         return TIE;
     }
@@ -492,9 +484,7 @@ bool playerToPlay(int gamesPlayed){
     else{
         return false;
     }
-
 }
-
 
 
 //Play multiple Games of Black jack
@@ -535,9 +525,16 @@ int blackJackTrack(CardArray &deck){
         playing = playerToPlay(gamesPlayed);
     }
 
-    //Once Player quits give them options
+    //Once Player quits give them stats
 
-    cout << "\nThanks for playing, you played " << gamesPlayed << " games and your record was:\n";
+    if (gamesPlayed == 1){
+        cout << "\nThanks for playing, you played " << gamesPlayed << " game and your record was:\n";
+    }
+
+    else{
+        cout << "\nThanks for playing, you played " << gamesPlayed << " games and your record was:\n";
+    }
+
     cout << "wins: " << wins << endl;
     cout << "losses: " << losses << endl;
     cout << "draws: " << draws << endl;
