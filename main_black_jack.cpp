@@ -86,7 +86,6 @@ struct CardArray{
     int max_elements;
     int current_elements;
 
-
     CardArray(){
 
         cards = nullptr;
@@ -222,7 +221,6 @@ bool playerHit(CardArray &dealerHand, CardArray &playerHand){
     if (choice == 'h'){
         return true;
     }
-
     else{
         return false;
     }
@@ -374,9 +372,6 @@ int blackjack(CardArray & deck){
     }
 
 
-
-
-
     //Start Playing
     cout << "\n\nDEALING TO PLAYER\n-----------------\n";
 
@@ -474,7 +469,6 @@ void reshuffle (CardArray &deck){
         //Re init deck as new
         deck.current_elements = 0;
         deck.max_elements = DECKSIZE;
-
     }
 }
 
@@ -498,6 +492,18 @@ bool playerToPlay(int gamesPlayed){
     choice = tolower(choice);
     cin.clear();
     cin.ignore(10000,'\n');
+
+    //Input checking for y or n
+    while(!(choice == 'y' || choice == 'n')){
+
+        cout << "\nWRONG INPUT, Try again (y to play, n to not play):";
+        cin >> choice;
+
+        //make choice lower and clear input stream
+        choice = tolower(choice);
+        cin.clear();
+        cin.ignore(10000,'\n');
+    }
 
     //Return True if player enters y or Y
     if (choice == 'y'){
@@ -594,22 +600,18 @@ void aceBustAdjust(CardArray & hand){
 }
 
 
-
-
 //************************************ Part 5 ************************************//
 
 //Calculate the Dealers Up card
 int upCard(CardArray &hand){
 
     int maxCard = 0;
-
     //iterate though to find max value card
     for(int element = 0; element < hand.current_elements;element++){
 
         //store max
         maxCard = max(maxCard,hand.cards[element].value);
     }
-
     return maxCard;
 }
 
