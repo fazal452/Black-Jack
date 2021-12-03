@@ -20,7 +20,7 @@ using namespace ::std;
 const int NUMOFSUITS = 4;
 const int NUMOFRANKS = 13;
 const int DECKSIZE = 52;
-const int SUITS[] = {83,72,68,67}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respectively
+const string SUITS[] = {"S","H","D","C"}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respectively
 const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
 
 //Part 2 Library
@@ -112,7 +112,7 @@ void getNewDeck(CardArray & deck){
         for (int rank = 1; rank <= NUMOFRANKS; rank++){
 
             //Assign specific card in deck a suit
-            deck.cards[card_count].suit = char (SUITS[suit]);
+            deck.cards[card_count].suit = (SUITS[suit]);
 
             //Assign specific card in deck a rank
             deck.cards[card_count].rank = rank;
@@ -126,12 +126,12 @@ void getNewDeck(CardArray & deck){
                 deck.cards[card_count].value = 11;
             }
 
-            //If Face card
+                //If Face card
             else if (rank == 11 || rank == 12 || rank == 13){
                 deck.cards[card_count].value = 10;
             }
 
-            //If Numbered
+                //If Numbered
             else{
                 deck.cards[card_count].value = rank;
             }
@@ -628,40 +628,40 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
 
         if (playerScore < GOODSCORE){
             cout << "You should HIT\n         Dealer's up card score is good at " << dealerUpCard
-            << " but your score is only " << playerScore <<  "\n";
+                 << " but your score is only " << playerScore <<  "\n";
         }
 
         else{
             cout << "You should STAND\n         Dealer's up card score is good at "<< dealerUpCard
-            << " but your score is " << playerScore <<  "\n";
+                 << " but your score is " << playerScore <<  "\n";
         }
     }
 
-    //If dealer has a FAIR card
+        //If dealer has a FAIR card
     else if(dealerUpCard > FAIRCARD && dealerUpCard < GOODCARD){
 
         if (playerScore < FAIRSCORE){
             cout << "You should HIT\n         Dealer's up card score is bad at " << dealerUpCard
-            << " and your score is only " << playerScore <<  "\n";
+                 << " and your score is only " << playerScore <<  "\n";
         }
 
         else{
             cout << "You should STAND\n         Dealer's up card is bad at " << dealerUpCard
-            << " and your score is good enough at " << playerScore <<  "\n";;
+                 << " and your score is good enough at " << playerScore <<  "\n";;
         }
     }
 
-    //If Dealer has a BAD card
+        //If Dealer has a BAD card
     else if(dealerUpCard <= FAIRCARD){
 
         if (playerScore < FAIRSCORE + 1){
             cout << "You should HIT\n         Dealer's up card score is fair at " << dealerUpCard
-            << " but your score is only " << playerScore <<  "\n";;
+                 << " but your score is only " << playerScore <<  "\n";;
         }
 
         else{
             cout << "You should STAND\n         Dealer's up card score is fair at " << dealerUpCard
-            << " and your score is good enough at " << playerScore << "\n";
+                 << " and your score is good enough at " << playerScore << "\n";
         }
     }
 }
