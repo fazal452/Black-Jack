@@ -187,7 +187,6 @@ void deleteHands(CardArray &dealerHand, CardArray &playerHand){
     delete [] playerHand.cards;
 }
 
-
 bool playerHit(CardArray &dealerHand, CardArray &playerHand){
 
     //Store variable for choice
@@ -396,7 +395,6 @@ int blackjack(CardArray & deck){
         }
         //Update whether to hit or not
         hit = playerHit(dealerHand,playerHand);
-
     }
 
 
