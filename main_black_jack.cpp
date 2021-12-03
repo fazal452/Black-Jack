@@ -324,7 +324,7 @@ int blackjack(CardArray & deck){
     //Give Dealer card after printing in order for mystery
 
     //Print Second Hand
-    cout << "\n\nDEAL SECOND CARD\n---------------\n";
+    cout << "\n\nDEAL SECOND CARD\n----------------\n";
     cout << "+PLAYER+: ";
     printHand(playerHand);
 
@@ -378,7 +378,7 @@ int blackjack(CardArray & deck){
 
 
     //Start Playing
-    cout << "\n\nDEALING TO PLAYER\n---------------\n";
+    cout << "\n\nDEALING TO PLAYER\n-----------------\n";
 
     //Get Choice
     bool hit = playerHit(dealerHand,playerHand);
@@ -406,7 +406,7 @@ int blackjack(CardArray & deck){
 
 
     //Dealer Plays out his hand
-    cout << "\n\nDEALING TO DEALER\n---------------\n";
+    cout << "\n\nDEALING TO DEALER\n-----------------\n";
 
     cout << "*DEALER*: ";
     printHand(dealerHand);
@@ -430,7 +430,9 @@ int blackjack(CardArray & deck){
     }
 
     //Determine Results
-    cout << "\n\nRESULTS \n---------------";
+    cout << "\n\nRESULTS \n-----------------------------------\n";
+    cout << "Player Score: " << handScore(playerHand) << " | Dealer Score: "
+    << handScore(dealerHand);
 
     //Player scores more
     if(handScore(playerHand) > handScore(dealerHand)){
@@ -483,7 +485,7 @@ bool playerToPlay(int gamesPlayed){
 
     //If first game
     if (gamesPlayed == 0){
-        cout << "\nWELCOME TO BLACKJACK\n--------------\n";
+        cout << "\nWELCOME TO BLACKJACK\n--------------------\n";
         cout << "Do you want to play a hand of blackjack? (y to play) :";
     }
     else{
