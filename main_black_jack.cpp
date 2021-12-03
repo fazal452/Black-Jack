@@ -12,7 +12,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <iomanip>
 #include <ios>
 #include <string>
 using namespace ::std;
@@ -467,8 +466,8 @@ void reshuffle (CardArray &deck){
         shuffleDeck(deck);
 
         //Print out shuffled version
-        cout << "\n\nRESHUFFLED\n";
-        printDeck(deck);
+//        cout << "\n\nRESHUFFLED\n";
+//        printDeck(deck);
 
         //Re init deck as new
         deck.current_elements = 0;
@@ -543,11 +542,16 @@ int blackJackTrack(CardArray &deck){
 
         result = NULL;
 
-        //Ask again wheter player wants to play
+        //Ask again whether player wants to play
         playing = playerToPlay(gamesPlayed);
     }
 
     //Once Player quits give them stats
+
+    if (gamesPlayed == 0){
+        cout << "\nThanks for trying\n";
+        return(0);
+    }
 
     if (gamesPlayed == 1){
         cout << "\nThanks for playing, you played " << gamesPlayed << " game and your record was:\n";
