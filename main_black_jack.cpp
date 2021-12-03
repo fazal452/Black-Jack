@@ -70,6 +70,7 @@ struct Card{
     int rank;
     int value;
 
+    //Initialize all starting values
     Card(){
         suit = "";
         description = "";
@@ -82,27 +83,30 @@ struct Card{
 struct CardArray{
 
     Card* cards;
-    int max_elements;
-    int current_elements;
+    int maxElements;
+    int currentElements;
 
+    //Initiliaze starting values
     CardArray(){
 
         cards = nullptr;
-        max_elements = 0;
-        current_elements = 0;
+        maxElements = 0;
+        currentElements = 0;
     }
 };
 
 //Function to Create a Full Deck of Cards
 void getNewDeck(CardArray & deck){
 
-    deck.max_elements = DECKSIZE;
-    deck.current_elements = 0;
+    //Set max elements for deck to 52
+    deck.maxElements = DECKSIZE;
+    deck.currentElements = 0;
 
     //Create pointer/array of Cards with size 52
     deck.cards = new Card[DECKSIZE];
 
-    int card_count = 0;
+    //Start at card 0
+    int cardCount = 0;
 
     //Assign Values
     for (int suit = 0; suit < NUMOFSUITS; suit++){
@@ -110,31 +114,32 @@ void getNewDeck(CardArray & deck){
         for (int rank = 1; rank <= NUMOFRANKS; rank++){
 
             //Assign specific card in deck a suit
-            deck.cards[card_count].suit = (SUITS[suit]);
+            deck.cards[cardCount].suit = (SUITS[suit]);
 
             //Assign specific card in deck a rank
-            deck.cards[card_count].rank = rank;
+            deck.cards[cardCount].rank = rank;
 
             //Assign specific card in deck a description
-            deck.cards[card_count].description = DESCRIPTION[rank-1];
+            deck.cards[cardCount].description = DESCRIPTION[rank - 1];
 
             //Assign specific card in deck a value
             //If ACE
             if (rank == 1){
-                deck.cards[card_count].value = 11;
+                deck.cards[cardCount].value = 11;
             }
 
                 //If Face card
             else if (rank == 11 || rank == 12 || rank == 13){
-                deck.cards[card_count].value = 10;
+                deck.cards[cardCount].value = 10;
             }
 
                 //If Numbered
             else{
-                deck.cards[card_count].value = rank;
+                deck.cards[cardCount].value = rank;
             }
 
-            card_count ++;
+            //increment number of card to increase
+            cardCount ++;
         }
     }
 }
@@ -142,17 +147,17 @@ void getNewDeck(CardArray & deck){
 //Print out the Deck
 void printDeck(const CardArray & deck){
     //start at card 0
-    int card_count = 0;
+    int cardCount = 0;
 
     for (int suit = 0; suit < NUMOFSUITS; suit++){
 
         for (int rank = 0; rank < NUMOFRANKS; rank++){
 
             //Index to Card number
-            card_count = suit*NUMOFRANKS + rank;
+            cardCount = suit * NUMOFRANKS + rank;
 
             //Print each cards description and suit
-            cout << (deck.cards)[card_count].description + (deck.cards)[card_count].suit + " ";
+            cout << (deck.cards)[cardCount].description + (deck.cards)[cardCount].suit + " ";
         }
         cout << endl;
     }
@@ -165,17 +170,17 @@ void shuffleDeck(CardArray & deck){
     srand(time(nullptr));
 
     //Use a Temp variable to swap multiple indicies at random
-    for(int swap_index = 0; swap_index < DECKSIZE; swap_index++){
+    for(int swapIndex = 0; swapIndex < DECKSIZE; swapIndex++){
 
         //get random donor
-        int swapee_index =  rand() % DECKSIZE;
+        int swapeeIndex = rand() % DECKSIZE;
 
         //Create temp variable
-        Card temp = deck.cards[swap_index];
+        Card temp = deck.cards[swapIndex];
 
         //Swap two cards
-        deck.cards[swap_index] = deck.cards[swapee_index];
-        deck.cards[swapee_index] = temp;
+        deck.cards[swapIndex] = deck.cards[swapeeIndex];
+        deck.cards[swapeeIndex] = temp;
     }
 }
 
@@ -202,10 +207,12 @@ bool playerHit(CardArray &dealerHand, CardArray &playerHand){
     //Convert choice to lower for input purposes
     choice = tolower(choice);
 
+    //If input doesnt start with s or h
     while (choice != 's' && choice != 'h'){
         cin.clear();
         cin.ignore(10000,'\n');
 
+        //ask for re-entering input
         cout << "\nUser input invalid, Please try again:";
         cin >> choice;
         choice = tolower(choice);
@@ -240,7 +247,7 @@ int handScore(const CardArray& hand){
     int score = 0;
 
     //iter through their hand and sum up score
-    for (int element = 0; element < hand.current_elements; element++){
+    for (int element = 0; element < hand.currentElements; element++){
 
         score += hand.cards[element].value;
     }
@@ -250,7 +257,7 @@ int handScore(const CardArray& hand){
 //Print out ones hand
 void printHand(CardArray &hand){
 
-    for (int element = 0; element < hand.current_elements; element++){
+    for (int element = 0; element < hand.currentElements; element++){
 
         cout << (hand.cards)[element].description + (hand.cards)[element].suit + " ";
     }
@@ -263,8 +270,8 @@ void initHand (CardArray &hand){
     //Set max elements to MAXCARDS
     //And current used elements to 0
     hand.cards = new Card[MAXCARDS];
-    hand.max_elements = MAXCARDS;
-    hand.current_elements = 0;
+    hand.maxElements = MAXCARDS;
+    hand.currentElements = 0;
 
 }
 
@@ -275,15 +282,15 @@ void deal(CardArray &deck, CardArray &hand){
     reshuffle(deck);
 
     //Find where to take card and where to put card
-    int removeIndex = (deck.max_elements - deck.current_elements - 1);
-    int placeIndex = hand.current_elements;
+    int removeIndex = (deck.maxElements - deck.currentElements - 1);
+    int placeIndex = hand.currentElements;
 
     //Place card form top of deck to bottom of hand
     hand.cards[placeIndex] = deck.cards[removeIndex];
 
     //Increment the current elements used
-    deck.current_elements ++;
-    hand.current_elements ++;
+    deck.currentElements ++;
+    hand.currentElements ++;
 
     //Adjust for any double aces
     aceBustAdjust(hand);
@@ -455,7 +462,7 @@ int blackjack(CardArray & deck){
 void reshuffle (CardArray &deck){
 
     //IF Deck will finish, shuffle up deck
-    if (deck.current_elements >= DECKSIZE-1){
+    if (deck.currentElements >= DECKSIZE - 1){
 
         shuffleDeck(deck);
 
@@ -464,8 +471,8 @@ void reshuffle (CardArray &deck){
 //        printDeck(deck);
 
         //Re init deck as new
-        deck.current_elements = 0;
-        deck.max_elements = DECKSIZE;
+        deck.currentElements = 0;
+        deck.maxElements = DECKSIZE;
     }
 }
 
@@ -524,6 +531,7 @@ int blackJackTrack(CardArray &deck){
     int draws = 0;
     int result;
 
+    //variable to keep track of whether player wants to play or not
     bool playing = playerToPlay(gamesPlayed);
 
     while (playing){
@@ -579,10 +587,9 @@ int blackJackTrack(CardArray &deck){
 //************************************ Part 4 ************************************//
 
 //Aces count as 11 until you bust, in which case they become 1's
-
 void aceBustAdjust(CardArray & hand){
 
-    for(int element = 0; element < hand.current_elements;element++){
+    for(int element = 0; element < hand.currentElements; element++){
 
         //If someone has busted
         if (isBust(handScore(hand))) {
@@ -605,7 +612,7 @@ int upCard(CardArray &hand){
 
     int maxCard = 0;
     //iterate though to find max value card
-    for(int element = 0; element < hand.current_elements;element++){
+    for(int element = 0; element < hand.currentElements; element++){
 
         //store max
         maxCard = max(maxCard,hand.cards[element].value);
