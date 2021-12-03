@@ -341,26 +341,29 @@ int blackjack(CardArray & deck){
     //If Player gets 21 natural
     if(handScore(playerHand) == WINNUM){
 
-        //If dealer doesnt have 21
-        //Player Wins
-        if(handScore(dealerHand) != WINNUM){
+        //If dealer have 21
+        //TIE
+        if(handScore(dealerHand) == WINNUM){
 
+            //If dealer have 21
+            //Player Tie
             cout << "\n*DEALER*: ";
             printHand(dealerHand);
 
-            cout << "\n\nBLACK JACK YOU WIN!!!";
+            cout << "\nTIE!!! BOTH PLAYERS BLACK JACK";
             deleteHands(dealerHand,playerHand);
-            return WIN;
+            return TIE;
         }
 
-        //If dealer have 21
-        //Player Tie
+        //Dealer doesnt have 21 but Player does
+
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
 
-        cout << "\nTIE!!! BOTH PLAYERS BLACK JACK";
+        cout << "\n\nBLACK JACK YOU WIN!!!";
         deleteHands(dealerHand,playerHand);
-        return TIE;
+        return WIN;
+
     }
 
     //Check for Dealer 21
@@ -410,8 +413,8 @@ int blackjack(CardArray & deck){
     cout << "*DEALER*: ";
     printHand(dealerHand);
 
-    //Dealer keeps drawing till win or bust
-    while (((handScore(dealerHand)) < DEALERTHRESHOLD) && (handScore(dealerHand) < handScore(playerHand))){
+    //Dealer keeps drawing till 17 or bust
+    while ((handScore(dealerHand) < DEALERTHRESHOLD)){
 
         deal(deck,dealerHand);
 
