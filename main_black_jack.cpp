@@ -20,24 +20,28 @@ using namespace ::std;
 const int NUMOFSUITS = 4;
 const int NUMOFRANKS = 13;
 const int DECKSIZE = 52;
-const string SUITS[] = {"S","H","D","C"}; // ASCII CODES FOR ♠, ♥, ♦, ♣, Respectively
+const string SUITS[] = {"S","H","D","C"}; // CODES FOR SPADE,HEART,DIAMONDS,CLUB
 const string DESCRIPTION[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
+
+struct Card;
+struct CardArray;
+
+void shuffleDeck(CardArray & deck);
+void getNewDeck(CardArray & deck);
+void printDeck(const CardArray & deck);
 
 //Part 2 Library
 const int MAXCARDS = 12;
 const int WINNUM = 21;
 const int DEALERTHRESHOLD = 17;
 
-struct Card;
-struct CardArray;
-
+void printHand(CardArray &hand);
+void initHand (CardArray &hand);
+void deal(CardArray &deck, CardArray &hand);
 void deleteHands(CardArray &dealerHand, CardArray &playerHand);
 bool playerHit(CardArray &dealerHand, CardArray &playerHand);
 bool isBust(int score);
 int handScore(const CardArray& hand);
-void printHand(CardArray &hand);
-void initHand (CardArray &hand);
-void deal(CardArray &deck, CardArray &hand);
 int blackjack(CardArray & deck);
 
 //Part 3 Library
@@ -53,13 +57,8 @@ int blackJackTrack(CardArray &deck);
 void aceBustAdjust(CardArray & hand);
 
 //Part 5 Library
-const int GOODCARD = 7;
-const int FAIRCARD = 3;
-const int GOODSCORE = 17;
-const int FAIRSCORE = 12;
-
-int upCard(CardArray &hand);
 void advisor(CardArray &dealerHand, CardArray &playerHand);
+int upCard(CardArray &hand);
 
 //************************************ Part 1 ************************************//
 
@@ -461,7 +460,7 @@ void reshuffle (CardArray &deck){
         shuffleDeck(deck);
 
         //Print out shuffled version
-//        cout << "\n\nRESHUFFLED\n";
+        cout << "\n\n***RESHUFFLED DECK***\n\n";
 //        printDeck(deck);
 
         //Re init deck as new
@@ -515,6 +514,7 @@ bool playerToPlay(int gamesPlayed){
 
 
 //Play multiple Games of Black jack
+//Keep Track of important variables, games played, wins, losses, ties
 int blackJackTrack(CardArray &deck){
 
     //Keep track of vital game variables
@@ -584,7 +584,7 @@ void aceBustAdjust(CardArray & hand){
 
     for(int element = 0; element < hand.current_elements;element++){
 
-        //If ones has busted
+        //If someone has busted
         if (isBust(handScore(hand))) {
 
             //Replace aces value from 11 to 1
@@ -615,6 +615,11 @@ int upCard(CardArray &hand){
 
 //Functions that advises player on optimal winning strategies
 void advisor(CardArray &dealerHand, CardArray &playerHand){
+
+    const int GOODCARD = 7;
+    const int FAIRCARD = 3;
+    const int GOODSCORE = 17;
+    const int FAIRSCORE = 12;
 
     //Store the vital playing cards of each player
     int dealerScore = handScore(dealerHand);
