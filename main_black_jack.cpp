@@ -213,7 +213,7 @@ bool playerHit(CardArray &dealerHand, CardArray &playerHand){
         cin.ignore(10000,'\n');
 
         //ask for re-entering input
-        cout << "\nUser input invalid, Please try again:";
+        cout << "\nUser input invalid, Please try again (s to stand, h to hit):";
         cin >> choice;
         choice = tolower(choice);
     }
@@ -661,7 +661,7 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
     }
 
         //If dealer has a FAIR card
-    else if(dealerUpCard > FAIRCARD && dealerUpCard < GOODCARD){
+    else if(dealerUpCard > FAIRCARD){
 
         if (playerScore < FAIRSCORE){
             cout << "You should HIT\n         Dealer's up card score is bad at " << dealerUpCard
@@ -669,7 +669,7 @@ void advisor(CardArray &dealerHand, CardArray &playerHand){
         }
 
         else{
-            cout << "You should STAND\n         Dealer's up card is bad at " << dealerUpCard
+            cout << "You should STAND\n         Dealer's up card score is bad at " << dealerUpCard
                  << " and your score is good enough at " << playerScore <<  "\n";;
         }
     }
