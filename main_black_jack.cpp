@@ -292,7 +292,7 @@ void deal(CardArray &deck, CardArray &hand){
     deck.currentElements ++;
     hand.currentElements ++;
 
-    //Adjust for any double aces
+    //Adjust for any busting that an ace might cause
     aceBustAdjust(hand);
 
 }
@@ -370,6 +370,7 @@ int blackjack(CardArray & deck){
     if(handScore(dealerHand) == WINNUM){
 
         //If dealer have 21
+        //Player obv doesnt have 21 else it would have been caught earlier
         //Player Lose
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
@@ -396,6 +397,7 @@ int blackjack(CardArray & deck){
         printHand(playerHand);
         cout << endl;
 
+        //Check if Player has busted and quit if so
         if (isBust(handScore(playerHand))){
 
             cout << "\nBUST! YOU LOSE";
@@ -421,7 +423,7 @@ int blackjack(CardArray & deck){
         cout << "\n*DEALER*: ";
         printHand(dealerHand);
 
-        aceBustAdjust(dealerHand);
+        //Check if Dealer has busted, Player auto win
         if(isBust(handScore(dealerHand))){
 
             cout << "\n\nDEALER HAS BUSTED, YOU WIN!!";
