@@ -399,8 +399,12 @@ int blackjack(CardArray & deck){
 
         //Check if Player has busted and quit if so
         if (isBust(handScore(playerHand))){
+            //Print Dealer hand first
+            cout << "*DEALER*: ";
+            printHand(dealerHand);
 
             cout << "\nBUST! YOU LOSE";
+
             deleteHands(dealerHand,playerHand);
             return LOSE;
         }
