@@ -1,14 +1,7 @@
-//Fazal-ur Rehman FRA22
-
 //The Advisor follows the strategies of Bicycles Website
 //It compares your current hand score to the dealers up card
 //It classifies your score, and the dealers up card, as GOOD, BAD, or FAIR
 //the advisor uses those two factors to inform the user to either stand or hit
-
-//Academic honesty statement:
-//I hereby confirm that this is my own work
-//and I have not violated any of SFU’s Code
-//of Academic Integrity and Good Conduct (S10.01).
 
 #include <iostream>
 #include <cmath>
